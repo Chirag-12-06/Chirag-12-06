@@ -372,7 +372,6 @@ Contributed to business-oriented software workflows, data processing, debugging,
 
 ## Current Focus
 
-```yaml
 Learning:
   - Advanced backend architecture
   - System design
@@ -438,4 +437,3 @@ Open To:
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:312e81,50:6d28d9,100:2563eb&height=120&section=footer" width="100%"/>
 </p>
-```
