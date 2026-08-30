@@ -12,8 +12,8 @@
   <img src="https://img.shields.io/badge/India-2563EB?style=for-the-badge&logo=googlemaps&logoColor=white"/>
 </p>
 
-<p align="center">
-  <a href="https://github.com/Chirag-12-06](https://chirag-gupta-portfolio.vercel.app/">
+  <p align="center">
+  <a href="https://chirag-gupta-portfolio.vercel.app">
     <img src="https://img.shields.io/badge/Portfolio-6D28D9?style=for-the-badge&logo=vercel&logoColor=white"/>
   </a>
   <a href="https://www.linkedin.com/in/chirag-gupta-73b17628a">
@@ -24,6 +24,9 @@
   </a>
   <a href="https://github.com/Chirag-12-06">
     <img src="https://img.shields.io/badge/GitHub-312E81?style=for-the-badge&logo=github&logoColor=white"/>
+  </a>
+  <a href="https://leetcode.com/u/Chirag_2005/">
+    <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white"/>
   </a>
 </p>
 
@@ -60,7 +63,7 @@ My engineering interests sit at the intersection of:
 ### Languages
 
 <p>
-  <img src="https://skillicons.dev/icons?i=cpp,python,js,sql,r" />
+  <img src="https://skillicons.dev/icons?i=cpp,python,js,r" />
 </p>
 
 ### Frontend
@@ -358,13 +361,6 @@ Contributed to business-oriented software workflows, data processing, debugging,
 
 ---
 
-## GitHub Trophies
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Chirag-12-06&theme=discord&no-frame=true&no-bg=true&margin-w=8&column=7" width="95%"/>
-</p>
-
----
 
 ## Contribution Activity
 
@@ -416,30 +412,22 @@ Open To:
 ## Connect
 
 <p align="center">
-  <a href="mailto:chiraggupta2120@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-7C3AED?style=for-the-badge&logo=gmail&logoColor=white"/>
+  <a href="https://chirag-gupta-portfolio.vercel.app">
+    <img src="https://img.shields.io/badge/Portfolio-6D28D9?style=for-the-badge&logo=vercel&logoColor=white"/>
   </a>
   <a href="https://www.linkedin.com/in/chirag-gupta-73b17628a">
     <img src="https://img.shields.io/badge/LinkedIn-4338CA?style=for-the-badge&logo=linkedin&logoColor=white"/>
   </a>
+  <a href="mailto:chiraggupta2120@gmail.com">
+    <img src="https://img.shields.io/badge/Email-7C3AED?style=for-the-badge&logo=gmail&logoColor=white"/>
+  </a>
   <a href="https://github.com/Chirag-12-06">
     <img src="https://img.shields.io/badge/GitHub-312E81?style=for-the-badge&logo=github&logoColor=white"/>
   </a>
-  <a href="https://github.com/Chirag-12-06">
-    <img src="https://img.shields.io/badge/Portfolio-6D28D9?style=for-the-badge&logo=vercel&logoColor=white"/>
+  <a href="https://leetcode.com/u/Chirag_2005/">
+    <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white"/>
   </a>
 </p>
-
-<p align="center">
-  <a href="mailto:chiraggupta2120@gmail.com">chiraggupta2120@gmail.com</a>
-  ·
-  <a href="https://www.linkedin.com/in/chirag-gupta-73b17628a">LinkedIn</a>
-  ·
-  <a href="https://github.com/Chirag-12-06">GitHub</a>
-  ·
-  <a href="https://leetcode.com/u/Chirag_2005/">LeetCode</a>
-</p>
-
 ---
 
 <p align="center">
