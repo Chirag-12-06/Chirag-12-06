@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Chirag-12-06">
+  <a href="https://github.com/Chirag-12-06](https://chirag-gupta-portfolio.vercel.app/">
     <img src="https://img.shields.io/badge/Portfolio-6D28D9?style=for-the-badge&logo=vercel&logoColor=white"/>
   </a>
   <a href="https://www.linkedin.com/in/chirag-gupta-73b17628a">
@@ -75,10 +75,22 @@ My engineering interests sit at the intersection of:
   <img src="https://skillicons.dev/icons?i=nodejs,express,flask,postgres,mongodb,mysql,prisma" />
 </p>
 
-### Cloud, DevOps & Tooling
+### Cloud
 
 <p>
-  <img src="https://skillicons.dev/icons?i=docker,githubactions,nginx,aws,git,github,postman,vscode" />
+  <img src="https://skillicons.dev/icons?i=aws" />
+</p>
+
+### DevOps
+
+<p>
+  <img src="https://skillicons.dev/icons?i=docker,githubactions,nginx" />
+</p>
+
+### Development & Tooling
+
+<p>
+  <img src="https://skillicons.dev/icons?i=git,github,postman,vscode" />
 </p>
 
 ---
@@ -125,7 +137,7 @@ A three-service **Retrieval-Augmented Generation platform** for document ingesti
 - Implemented **persistent multi-turn conversations** using stored message and conversation records.
 - Deployed a working production-facing frontend for interactive knowledge retrieval.
 
-**Live Demo:** https://enterprise-knowledge-assistant-iota.vercel.app/
+**Live Demo:** (https://enterprise-knowledge-assistant-iota.vercel.app)
 
 </details>
 
