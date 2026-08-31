@@ -1,0 +1,32 @@
+name: Update contribution forest
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # once a day, midnight UTC
+  workflow_dispatch: {}     # lets you also trigger it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate forest SVG
+        run: python scripts/generate_forest.py --username ${{ github.repository_owner }} --token ${{ secrets.GITHUB_TOKEN }} --out forest.svg
+
+      - name: Commit forest.svg if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add forest.svg
+          git diff --staged --quiet || git commit -m "Update contribution forest"
+          git push
