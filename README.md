@@ -354,9 +354,8 @@ Contributed to business-oriented software workflows, data processing, debugging,
 ## Contribution Activity
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Chirag-12-06&bg_color=0D0B1F&color=C4B5FD&line=8B5CF6&point=A78BFA&area=true&hide_border=true&custom_title=Contribution%20Activity" width="95%"/>
+<img src="forest.svg" width="100%"/>
 </p>
-
 ---
 
 ## Contribution Snake
