@@ -339,16 +339,15 @@ Contributed to business-oriented software workflows, data processing, debugging,
 
 ## GitHub Analytics
 
+
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Chirag-12-06&show_icons=true&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github&bg_color=0D0B1F&title_color=A78BFA&icon_color=8B5CF6&text_color=E9D5FF&custom_title=Chirag%20Gupta%27s%20GitHub%20Stats" height="180"/>
+  <img src="https://github-stats-extended.vercel.app/api?username=Chirag-12-06&show_icons=true&hide_border=true&include_all_commits=true&count_private=true&rank_icon=github&bg_color=0D0B1F&title_color=A78BFA&icon_color=8B5CF6&text_color=E9D5FF&custom_title=Chirag%20Gupta%27s%20GitHub%20Stats" height="180"/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=Chirag-12-06&hide_border=true&background=0D0B1F&stroke=312E81&ring=8B5CF6&fire=A78BFA&currStreakLabel=C4B5FD&sideLabels=C4B5FD&currStreakNum=FFFFFF&sideNums=FFFFFF&dates=9CA3AF" height="180"/>
 </p>
-
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Chirag-12-06&layout=compact&langs_count=10&hide_border=true&bg_color=0D0B1F&title_color=A78BFA&text_color=E9D5FF&custom_title=Most%20Used%20Languages" height="180"/>
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=Chirag-12-06&layout=compact&langs_count=10&hide_border=true&bg_color=0D0B1F&title_color=A78BFA&text_color=E9D5FF&custom_title=Most%20Used%20Languages" height="180"/>
 </p>
 
----
 
 
 ## Contribution Activity
@@ -356,14 +355,6 @@ Contributed to business-oriented software workflows, data processing, debugging,
 <p align="center">
 <img src="forest.svg" width="100%"/>
 </p>
----
-
-## Contribution Snake
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Chirag-12-06/Chirag-12-06/output/github-contribution-grid-snake-dark.svg" alt="GitHub Contribution Snake"/>
-</p>
-
 ---
 
 ## Current Focus
