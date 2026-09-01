@@ -44,8 +44,8 @@ PAD_TOP = 50      # top room, must fit the tallest tree + top-right text
 PAD_BOTTOM = 55   # bottom room, must fit the bottom-left streak text
 
 # GitHub-style green ramp, dark->light unused levels get muted ground tile
-GROUND_COLOR = "#ebedf0"
-GROUND_STROKE = "#d8dbe0"
+GROUND_COLOR = "#182022"
+GROUND_STROKE = "#2b3538"
 TRUNK_COLOR = "#7b4a24"
 LEVEL_COLORS = ["#9be9a8", "#40c463", "#30a14e", "#216e39"]  # level 1..4
 
