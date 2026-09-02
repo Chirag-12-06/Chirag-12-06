@@ -63,10 +63,14 @@ My engineering interests sit at the intersection of:
   <img src="https://skillicons.dev/icons?i=react,html,css,vite,tailwind" />
 </p>
 
-### Backend & Databases
-
+### Backend
 <p>
-  <img src="https://skillicons.dev/icons?i=nodejs,express,flask,postgres,mongodb,mysql,prisma" />
+  <img src="https://skillicons.dev/icons?i=nodejs,express,flask" />
+</p>
+
+### Databases
+<p>
+  <img src="https://skillicons.dev/icons?i=postgres,mongodb,mysql,prisma" />
 </p>
 
 ### Cloud
@@ -355,7 +359,7 @@ Contributed to business-oriented software workflows, data processing, debugging,
 <p align="center">
 <img src="forest.svg" width="100%"/>
 </p>
----
+
 
 ## Current Focus
 
