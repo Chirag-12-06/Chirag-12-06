@@ -160,32 +160,25 @@ def draw_tree(x: float, y: float, level: int) -> str:
         f'rx="{shadow_rx:.1f}" ry="{shadow_ry:.1f}" fill="#000000" opacity="0.28"/>'
     )
 
-    # Trunk split into a shaded left half and a lit right half
+    # Trunk, single flat color
     trunk = (
         f'<rect x="{base_x - trunk_w/2:.1f}" y="{base_y - trunk_h:.1f}" '
-        f'width="{trunk_w/2:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_DARK}"/>'
-        f'<rect x="{base_x:.1f}" y="{base_y - trunk_h:.1f}" '
-        f'width="{trunk_w/2:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_COLOR}"/>'
+        f'width="{trunk_w:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_COLOR}"/>'
     )
 
-    # Foliage: shadow (left) half and lit (right) half of the spindle silhouette,
-    # sharing a straight vertical seam down the middle for a simple two-tone volume look
-    left_half = (
+    # Foliage: single flat-colored spindle silhouette (no left/right color split)
+    foliage = (
         f'<path d="M {base_x:.1f} {top_y:.1f} '
         f'C {base_x - width*0.46:.1f} {top_y + height*0.32:.1f}, '
         f'{base_x - width*0.5:.1f} {mid_y:.1f}, '
         f'{base_x - width*0.28:.1f} {foliage_base_y:.1f} '
-        f'L {base_x:.1f} {foliage_base_y:.1f} Z" fill="{dark_color}"/>'
-    )
-    right_half = (
-        f'<path d="M {base_x:.1f} {top_y:.1f} '
-        f'C {base_x + width*0.46:.1f} {top_y + height*0.32:.1f}, '
-        f'{base_x + width*0.5:.1f} {mid_y:.1f}, '
-        f'{base_x + width*0.28:.1f} {foliage_base_y:.1f} '
-        f'L {base_x:.1f} {foliage_base_y:.1f} Z" fill="{color}"/>'
+        f'L {base_x + width*0.28:.1f} {foliage_base_y:.1f} '
+        f'C {base_x + width*0.5:.1f} {mid_y:.1f}, '
+        f'{base_x + width*0.46:.1f} {top_y + height*0.32:.1f}, '
+        f'{base_x:.1f} {top_y:.1f} Z" fill="{color}"/>'
     )
 
-    # Thin highlight streak on the lit side, like a rim of sunlight catching the edge
+    # Thin highlight streak on one side, like a rim of sunlight catching the edge
     highlight = (
         f'<path d="M {base_x + width*0.08:.1f} {top_y + height*0.12:.1f} '
         f'C {base_x + width*0.28:.1f} {top_y + height*0.32:.1f}, '
@@ -195,7 +188,7 @@ def draw_tree(x: float, y: float, level: int) -> str:
         f'fill="none" opacity="0.55" stroke-linecap="round"/>'
     )
 
-    return shadow + trunk + left_half + right_half + highlight
+    return shadow + trunk + foliage + highlight
 
 
 def compute_streaks(all_days):
