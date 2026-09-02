@@ -148,20 +148,30 @@ def draw_tree(x: float, y: float, level: int) -> str:
 
 
 def compute_streaks(all_days):
-    """Longest and current consecutive-day contribution streaks."""
-    longest = current = running = 0
+    """Longest and current consecutive-day contribution streaks.
+
+    Current streak matches github-readme-streak-stats' rule: if *today*
+    (the last day in the list) has zero contributions, that alone doesn't
+    break the streak — the day isn't over yet. Only a second consecutive
+    zero day (i.e. yesterday was also zero) actually resets it to 0.
+    """
+    longest = running = 0
     for d in all_days:
         if d["contributionCount"] > 0:
             running += 1
             longest = max(longest, running)
         else:
             running = 0
-    # current streak = trailing run at the end of the (chronological) list
-    for d in reversed(all_days):
-        if d["contributionCount"] > 0:
-            current += 1
-        else:
-            break
+
+    idx = len(all_days) - 1
+    if idx >= 0 and all_days[idx]["contributionCount"] == 0:
+        idx -= 1  # give "today" a pass, same as the streak-stats badge does
+
+    current = 0
+    while idx >= 0 and all_days[idx]["contributionCount"] > 0:
+        current += 1
+        idx -= 1
+
     return longest, current
 
 
