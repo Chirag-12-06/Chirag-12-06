@@ -49,9 +49,32 @@ GROUND_STROKE = "#2b3538"
 TRUNK_COLOR = "#7b4a24"
 LEVEL_COLORS = ["#9be9a8", "#40c463", "#30a14e", "#216e39"]  # level 1..4
 
+
+def _darken(hex_color: str, factor: float) -> str:
+    """Return hex_color scaled toward black by factor (0=black, 1=unchanged)."""
+    hex_color = hex_color.lstrip("#")
+    r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+    r, g, b = int(r * factor), int(g * factor), int(b * factor)
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
+def _lighten(hex_color: str, factor: float) -> str:
+    """Return hex_color scaled toward white by factor (0=unchanged, 1=white)."""
+    hex_color = hex_color.lstrip("#")
+    r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+    r = int(r + (255 - r) * factor)
+    g = int(g + (255 - g) * factor)
+    b = int(b + (255 - b) * factor)
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
+DARK_LEVEL_COLORS = [_darken(c, 0.55) for c in LEVEL_COLORS]
+LIGHT_LEVEL_COLORS = [_lighten(c, 0.35) for c in LEVEL_COLORS]
+TRUNK_DARK = _darken(TRUNK_COLOR, 0.6)
+
 # Tallest possible tree (level 4) extends this far above a tile's vertical center
-_LEVEL4_SCALE = 0.6 + 4 * 0.24
-MAX_TREE_RISE = _LEVEL4_SCALE * 2 + _LEVEL4_SCALE * 15  # trunk_h + height at level 4
+_LEVEL4_SCALE = 1.05 + 4 * 0.4
+MAX_TREE_RISE = _LEVEL4_SCALE * 3 + _LEVEL4_SCALE * 19  # trunk_h + height at level 4
 
 
 def fetch_contributions(username: str, token: str):
@@ -113,13 +136,15 @@ def draw_ground_tile(x: float, y: float) -> str:
 
 
 def draw_tree(x: float, y: float, level: int) -> str:
-    """A tall, narrow front-facing cypress tree, sized and colored by contribution level."""
+    """A tall, shaded front-facing cypress tree, sized and colored by contribution level."""
     color = LEVEL_COLORS[level - 1]
-    scale = 0.6 + level * 0.24  # level 1 shortest, level 4 tallest
-    trunk_h = 2 * scale
-    trunk_w = 1.4 * scale
-    height = 15 * scale
-    width = 6.5 * scale
+    dark_color = DARK_LEVEL_COLORS[level - 1]
+    light_color = LIGHT_LEVEL_COLORS[level - 1]
+    scale = 1.05 + level * 0.4  # level 1 already tall, level 4 towers
+    trunk_h = 3 * scale
+    trunk_w = 2.4 * scale
+    height = 19 * scale
+    width = 10 * scale
 
     base_x = x
     base_y = y + TILE_H / 2  # anchor at tile center, tree grows upward
@@ -127,24 +152,50 @@ def draw_tree(x: float, y: float, level: int) -> str:
     top_y = foliage_base_y - height
     mid_y = foliage_base_y - height * 0.55
 
-    trunk = (
-        f'<rect x="{base_x - trunk_w/2:.1f}" y="{base_y - trunk_h:.1f}" '
-        f'width="{trunk_w:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_COLOR}"/>'
+    # Soft ground shadow, offset slightly as if light comes from the upper-left
+    shadow_rx = width * 0.55
+    shadow_ry = shadow_rx * 0.32
+    shadow = (
+        f'<ellipse cx="{base_x + shadow_rx*0.18:.1f}" cy="{base_y + 1:.1f}" '
+        f'rx="{shadow_rx:.1f}" ry="{shadow_ry:.1f}" fill="#000000" opacity="0.28"/>'
     )
 
-    # Slender spindle silhouette: narrow point at top, gentle bulge mid-way, tapered base
-    path = (
+    # Trunk split into a shaded left half and a lit right half
+    trunk = (
+        f'<rect x="{base_x - trunk_w/2:.1f}" y="{base_y - trunk_h:.1f}" '
+        f'width="{trunk_w/2:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_DARK}"/>'
+        f'<rect x="{base_x:.1f}" y="{base_y - trunk_h:.1f}" '
+        f'width="{trunk_w/2:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_COLOR}"/>'
+    )
+
+    # Foliage: shadow (left) half and lit (right) half of the spindle silhouette,
+    # sharing a straight vertical seam down the middle for a simple two-tone volume look
+    left_half = (
         f'<path d="M {base_x:.1f} {top_y:.1f} '
         f'C {base_x - width*0.46:.1f} {top_y + height*0.32:.1f}, '
         f'{base_x - width*0.5:.1f} {mid_y:.1f}, '
         f'{base_x - width*0.28:.1f} {foliage_base_y:.1f} '
-        f'L {base_x + width*0.28:.1f} {foliage_base_y:.1f} '
-        f'C {base_x + width*0.5:.1f} {mid_y:.1f}, '
-        f'{base_x + width*0.46:.1f} {top_y + height*0.32:.1f}, '
-        f'{base_x:.1f} {top_y:.1f} Z" fill="{color}"/>'
+        f'L {base_x:.1f} {foliage_base_y:.1f} Z" fill="{dark_color}"/>'
+    )
+    right_half = (
+        f'<path d="M {base_x:.1f} {top_y:.1f} '
+        f'C {base_x + width*0.46:.1f} {top_y + height*0.32:.1f}, '
+        f'{base_x + width*0.5:.1f} {mid_y:.1f}, '
+        f'{base_x + width*0.28:.1f} {foliage_base_y:.1f} '
+        f'L {base_x:.1f} {foliage_base_y:.1f} Z" fill="{color}"/>'
     )
 
-    return trunk + path
+    # Thin highlight streak on the lit side, like a rim of sunlight catching the edge
+    highlight = (
+        f'<path d="M {base_x + width*0.08:.1f} {top_y + height*0.12:.1f} '
+        f'C {base_x + width*0.28:.1f} {top_y + height*0.32:.1f}, '
+        f'{base_x + width*0.3:.1f} {mid_y:.1f}, '
+        f'{base_x + width*0.16:.1f} {foliage_base_y - height*0.08:.1f}" '
+        f'stroke="{light_color}" stroke-width="{max(0.6, scale*0.35):.1f}" '
+        f'fill="none" opacity="0.55" stroke-linecap="round"/>'
+    )
+
+    return shadow + trunk + left_half + right_half + highlight
 
 
 def compute_streaks(all_days):
