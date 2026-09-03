@@ -166,7 +166,8 @@ def draw_tree(x: float, y: float, level: int) -> str:
         f'width="{trunk_w:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_COLOR}"/>'
     )
 
-    # Foliage: single flat-colored spindle silhouette (no left/right color split)
+    # Foliage: single flat-colored spindle silhouette, with a subtle darker
+    # outline so individual trees stay distinguishable when they overlap
     foliage = (
         f'<path d="M {base_x:.1f} {top_y:.1f} '
         f'C {base_x - width*0.46:.1f} {top_y + height*0.32:.1f}, '
@@ -175,7 +176,8 @@ def draw_tree(x: float, y: float, level: int) -> str:
         f'L {base_x + width*0.28:.1f} {foliage_base_y:.1f} '
         f'C {base_x + width*0.5:.1f} {mid_y:.1f}, '
         f'{base_x + width*0.46:.1f} {top_y + height*0.32:.1f}, '
-        f'{base_x:.1f} {top_y:.1f} Z" fill="{color}"/>'
+        f'{base_x:.1f} {top_y:.1f} Z" fill="{color}" '
+        f'stroke="{dark_color}" stroke-width="{max(0.5, scale*0.28):.1f}" stroke-linejoin="round"/>'
     )
 
     # Thin highlight streak on one side, like a rim of sunlight catching the edge
