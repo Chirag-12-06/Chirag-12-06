@@ -107,12 +107,17 @@ My engineering interests sit at the intersection of:
 
 ---
 
+
+
 ## Featured Projects
 
-<details>
-<summary><strong>🧠 Enterprise Knowledge Assistant</strong></summary>
+<table width="100%" border="1" cellpadding="14" cellspacing="0">
+<tr><td>
 
-### Enterprise Knowledge Assistant
+<details>
+<summary><strong>🧠 Enterprise Knowledge Assistant</strong><br/><sub>RAG platform · React · Node.js · MongoDB</sub></summary>
+
+<br/>
 
 A three-service **Retrieval-Augmented Generation platform** for document ingestion, semantic retrieval, conversational AI, and persistent multi-turn conversations.
 
@@ -123,28 +128,29 @@ A three-service **Retrieval-Augmented Generation platform** for document ingesti
 | **Performance** | Chunk-based semantic retrieval with MongoDB Atlas Vector Search |
 | **Security** | Service-separated architecture with backend-controlled data access |
 | **Impact** | Converts unstructured documents into searchable conversational knowledge |
-| **Repository** | [GitHub](https://github.com/Chirag-12-06/Enterprise-Knowledge-Assistant) |
 
-### Engineering Highlights
+**Engineering Highlights**
+- Designed a three-service architecture separating frontend, Node.js logic, and Python embedding workloads
+- Built 7 REST endpoints covering ingestion, semantic search, chat, and conversation management
+- Implemented an end-to-end RAG pipeline using 384-dimensional Sentence Transformer embeddings
+- Indexed document chunks in MongoDB Atlas Vector Search for semantic retrieval
+- Added LLM-based answer generation using retrieved contextual chunks
+- Implemented persistent multi-turn conversations with stored message/conversation records
 
-- Designed a **three-service architecture** separating frontend, Node.js application logic, and Python embedding workloads.
-- Built **7 REST endpoints** covering document ingestion, semantic search, chat, and conversation management.
-- Implemented an end-to-end RAG pipeline using **384-dimensional Sentence Transformer embeddings**.
-- Indexed document chunks in **MongoDB Atlas Vector Search** for semantic retrieval.
-- Added **LLM-based answer generation** using retrieved contextual chunks.
-- Implemented **persistent multi-turn conversations** using stored message and conversation records.
-- Deployed a working production-facing frontend for interactive knowledge retrieval.
-
-**Live Demo:** (https://enterprise-knowledge-assistant-iota.vercel.app)
+[Repo](https://github.com/Chirag-12-06/Enterprise-Knowledge-Assistant) · [Live Demo](https://enterprise-knowledge-assistant-iota.vercel.app)
 
 </details>
 
----
+</td></tr>
+</table>
+
+<table width="100%" border="1" cellpadding="14" cellspacing="0">
+<tr><td>
 
 <details>
-<summary><strong>💰 BudgetWise</strong></summary>
+<summary><strong>💰 BudgetWise</strong><br/><sub>Expense platform · React · PostgreSQL · ML</sub></summary>
 
-### BudgetWise
+<br/>
 
 A full-stack **expense management platform** combining financial tracking, analytics, recurring transactions, machine learning, and automated receipt processing.
 
@@ -155,29 +161,29 @@ A full-stack **expense management platform** combining financial tracking, analy
 | **Performance** | ML-powered categorization with confidence-based prediction |
 | **Security** | Authenticated backend architecture with database-backed user data |
 | **Impact** | Automated expense classification and receipt-to-expense workflows |
-| **Repository** | [GitHub](https://github.com/Chirag-12-06/Budgetwise) |
 
-### Engineering Highlights
+**Engineering Highlights**
+- Built 18 REST API endpoints covering auth, expenses, analytics, and recurring transactions
+- Implemented recurring expenses across 4 frequencies with 3 configurable end conditions
+- Developed a Scikit-learn category prediction pipeline with user-specific model training after 10+ expenses
+- Added a 0.6 confidence threshold to control automated category prediction
+- Built receipt processing using OpenCV + Tesseract OCR + LLM-based extraction
+- Integrated PostgreSQL through Prisma ORM for structured data management
 
-- Built **18 REST API endpoints** covering authentication, expenses, analytics, and recurring transactions.
-- Implemented recurring expenses across **4 frequencies** with **3 configurable end conditions**.
-- Developed a **Scikit-learn category prediction pipeline** with user-specific model training after **10+ expenses**.
-- Added a **0.6 confidence threshold** to control automated category prediction.
-- Built receipt processing using **OpenCV + Tesseract OCR + LLM-based extraction**.
-- Converted receipt images into structured expense data for downstream processing.
-- Added analytical dashboards and expense visualizations for financial insights.
-- Integrated PostgreSQL through **Prisma ORM** for structured data management.
-
-**Live Demo:** https://budgetwise-aka2.vercel.app
+[Repo](https://github.com/Chirag-12-06/Budgetwise) · [Live Demo](https://budgetwise-aka2.vercel.app)
 
 </details>
 
----
+</td></tr>
+</table>
+
+<table width="100%" border="1" cellpadding="14" cellspacing="0">
+<tr><td>
 
 <details>
-<summary><strong>🌐 Portify</strong></summary>
+<summary><strong>🌐 Portify</strong><br/><sub>Portfolio platform · React · Express · Prisma</sub></summary>
 
-### Portify
+<br/>
 
 A full-stack **portfolio management platform** with independent administrative and public applications for managing professional profile data.
 
@@ -186,30 +192,31 @@ A full-stack **portfolio management platform** with independent administrative a
 | **Stack** | React.js · Node.js · Express · PostgreSQL · Prisma · JWT · GitHub API |
 | **Scale** | 3 applications · 14 admin modules · 12 public modules · 70+ REST endpoints |
 | **Performance** | Search, filtering, pagination, and structured API workflows |
-| **Security** | JWT authentication · HTTP-only cookies · role-based authorization · token expiry · login-attempt limiting |
+| **Security** | JWT auth · HTTP-only cookies · role-based authorization · login-attempt limiting |
 | **Impact** | Centralized portfolio content management with reusable admin workflows |
-| **Repository** | [GitHub](https://github.com/Chirag-12-06) |
 
-### Engineering Highlights
+**Engineering Highlights**
+- Architected 3 applications across public and administrative workflows
+- Built 14 admin modules and 12 public modules for portfolio management
+- Designed a PostgreSQL schema with 15 Prisma models and 5 join tables
+- Implemented 70+ REST API endpoints across portfolio domains
+- Added JWT authentication with HTTP-only cookies and role-based authorization
+- Integrated the GitHub API for custom contribution heatmap data
 
-- Architected **3 applications** across public and administrative workflows.
-- Built **14 admin modules** and **12 public modules** for portfolio management.
-- Designed a PostgreSQL schema containing **15 Prisma models and 5 join tables**.
-- Implemented **70+ REST API endpoints** across portfolio domains.
-- Added **JWT authentication** with HTTP-only cookies and role-based authorization.
-- Implemented token expiry handling and **login-attempt limiting**.
-- Added **Zod validation**, search, filtering, and pagination.
-- Integrated the **GitHub API** for custom contribution heatmap data.
-- Established a reusable backend architecture around **Prisma → validation → service → controller → route** workflows.
+[Repo](https://github.com/Chirag-12-06)
 
 </details>
 
----
+</td></tr>
+</table>
+
+<table width="100%" border="1" cellpadding="14" cellspacing="0">
+<tr><td>
 
 <details>
-<summary><strong>🚀 DeployFlow</strong></summary>
+<summary><strong>🚀 DeployFlow</strong><br/><sub>DevOps · Docker · CI/CD · AWS</sub></summary>
 
-### DeployFlow
+<br/>
 
 A containerized full-stack application demonstrating **Docker-based deployment, reverse proxy configuration, and CI/CD automation**.
 
@@ -220,25 +227,28 @@ A containerized full-stack application demonstrating **Docker-based deployment, 
 | **Performance** | Containerized services with isolated runtime environments |
 | **Security** | Environment-based configuration and service isolation |
 | **Impact** | Automated application delivery from source control to cloud deployment |
-| **Repository** | [GitHub](https://github.com/Chirag-12-06/DeployFlow) |
 
-### Engineering Highlights
+**Engineering Highlights**
+- Containerized a React + Node.js + PostgreSQL application with Docker and Docker Compose
+- Configured isolated application services and persistent PostgreSQL volumes
+- Configured Nginx as a reverse proxy for production traffic routing
+- Built a GitHub Actions CI/CD pipeline for automated testing, image builds, and deployment
+- Deployed the application to AWS EC2
 
-- Containerized a **React + Node.js + PostgreSQL** application with Docker and Docker Compose.
-- Configured isolated application services and **persistent PostgreSQL volumes**.
-- Implemented environment-based runtime configuration.
-- Configured **Nginx as a reverse proxy** for production traffic routing.
-- Built a **GitHub Actions CI/CD pipeline** for automated testing, image builds, and deployment.
-- Deployed the application to **AWS EC2**.
+[Repo](https://github.com/Chirag-12-06/DeployFlow)
 
 </details>
 
----
+</td></tr>
+</table>
+
+<table width="100%" border="1" cellpadding="14" cellspacing="0">
+<tr><td>
 
 <details>
-<summary><strong>📊 Streamlit Sentiment Dashboard</strong></summary>
+<summary><strong>📊 Streamlit Sentiment Dashboard</strong><br/><sub>Data viz · Python · Streamlit · Plotly</sub></summary>
 
-### Streamlit Sentiment Dashboard
+<br/>
 
 An interactive sentiment analysis dashboard built around **14,608 tweets from 6 major US airlines**.
 
@@ -247,20 +257,21 @@ An interactive sentiment analysis dashboard built around **14,608 tweets from 6 
 | **Stack** | Python · Streamlit · Plotly · Pandas |
 | **Scale** | 14,608 tweets · 6 airlines |
 | **Performance** | Interactive filtering and visual exploration |
-| **Security** | Local analytical workflow with no authentication layer required |
+| **Security** | Local analytical workflow, no authentication layer required |
 | **Impact** | Explorable sentiment insights through interactive dashboards |
-| **Repository** | [GitHub](https://github.com/Chirag-12-06) |
 
-### Engineering Highlights
+**Engineering Highlights**
+- Analyzed sentiment distribution across airlines: 63% negative, 21% neutral, 16% positive
+- Built interactive visualizations using Plotly and Streamlit
+- Added per-airline sentiment comparisons and sentiment-based word clouds
+- Added geolocation mapping and a random-tweet explorer
 
-- Analyzed sentiment distribution across airlines.
-- Identified **63% negative, 21% neutral, and 16% positive** sentiment.
-- Built interactive visualizations using **Plotly** and Streamlit.
-- Added per-airline sentiment comparisons.
-- Implemented sentiment-based word clouds.
-- Added geolocation mapping and a random-tweet explorer.
+[Repo](https://github.com/Chirag-12-06)
 
 </details>
+
+</td></tr>
+</table>
 
 ---
 
@@ -297,6 +308,8 @@ Contributed to business-oriented software workflows, data processing, debugging,
 </div>
 
 ---
+
+
 
 ## Certifications
 
