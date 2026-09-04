@@ -111,11 +111,13 @@ My engineering interests sit at the intersection of:
 
 ## Featured Projects
 
+---
+
 <table width="100%" border="1" cellpadding="14" cellspacing="0">
-<tr><td>
+<tr><td width="1000">
 
 <details>
-<summary><strong>🧠 Enterprise Knowledge Assistant</strong><br/><sub>RAG platform · React · Node.js · MongoDB</sub></summary>
+<summary><strong>🧠 Enterprise Knowledge Assistant</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Chirag-12-06/Enterprise-Knowledge-Assistant">Repo</a> · <a href="https://enterprise-knowledge-assistant-iota.vercel.app">Live Demo</a><br/><sub>RAG platform · React · Node.js · MongoDB</sub></summary>
 
 <br/>
 
@@ -137,18 +139,16 @@ A three-service **Retrieval-Augmented Generation platform** for document ingesti
 - Added LLM-based answer generation using retrieved contextual chunks
 - Implemented persistent multi-turn conversations with stored message/conversation records
 
-[Repo](https://github.com/Chirag-12-06/Enterprise-Knowledge-Assistant) · [Live Demo](https://enterprise-knowledge-assistant-iota.vercel.app)
-
 </details>
 
 </td></tr>
 </table>
 
 <table width="100%" border="1" cellpadding="14" cellspacing="0">
-<tr><td>
+<tr><td width="1000">
 
 <details>
-<summary><strong>💰 BudgetWise</strong><br/><sub>Expense platform · React · PostgreSQL · ML</sub></summary>
+<summary><strong>💰 BudgetWise</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Chirag-12-06/Budgetwise">Repo</a> · <a href="https://budgetwise-aka2.vercel.app">Live Demo</a><br/><sub>Expense platform · React · PostgreSQL · ML</sub></summary>
 
 <br/>
 
@@ -170,18 +170,16 @@ A full-stack **expense management platform** combining financial tracking, analy
 - Built receipt processing using OpenCV + Tesseract OCR + LLM-based extraction
 - Integrated PostgreSQL through Prisma ORM for structured data management
 
-[Repo](https://github.com/Chirag-12-06/Budgetwise) · [Live Demo](https://budgetwise-aka2.vercel.app)
-
 </details>
 
 </td></tr>
 </table>
 
 <table width="100%" border="1" cellpadding="14" cellspacing="0">
-<tr><td>
+<tr><td width="1000">
 
 <details>
-<summary><strong>🌐 Portify</strong><br/><sub>Portfolio platform · React · Express · Prisma</sub></summary>
+<summary><strong>🌐 Portify</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Chirag-12-06/Portify">Repo</a> · <a href="https://chirag-gupta-portfolio.vercel.app/">Live Demo</a><br/><sub>Portfolio platform · React · Express · Prisma</sub></summary>
 
 <br/>
 
@@ -203,18 +201,16 @@ A full-stack **portfolio management platform** with independent administrative a
 - Added JWT authentication with HTTP-only cookies and role-based authorization
 - Integrated the GitHub API for custom contribution heatmap data
 
-[Repo](https://github.com/Chirag-12-06)
-
 </details>
 
 </td></tr>
 </table>
 
 <table width="100%" border="1" cellpadding="14" cellspacing="0">
-<tr><td>
+<tr><td width="1000">
 
 <details>
-<summary><strong>🚀 DeployFlow</strong><br/><sub>DevOps · Docker · CI/CD · AWS</sub></summary>
+<summary><strong>🚀 DeployFlow</strong>&nbsp;&nbsp&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Chirag-12-06/DeployFlow">Repo</a><br/><sub>DevOps · Docker · CI/CD · AWS</sub></summary>
 
 <br/>
 
@@ -235,18 +231,16 @@ A containerized full-stack application demonstrating **Docker-based deployment, 
 - Built a GitHub Actions CI/CD pipeline for automated testing, image builds, and deployment
 - Deployed the application to AWS EC2
 
-[Repo](https://github.com/Chirag-12-06/DeployFlow)
-
 </details>
 
 </td></tr>
 </table>
 
 <table width="100%" border="1" cellpadding="14" cellspacing="0">
-<tr><td>
+<tr><td width="1000">
 
 <details>
-<summary><strong>📊 Streamlit Sentiment Dashboard</strong><br/><sub>Data viz · Python · Streamlit · Plotly</sub></summary>
+<summary><strong>📊 Streamlit Sentiment Dashboard</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/Chirag-12-06">Repo</a> · <a href="https://chirag-12-06-streamlit-sentiment-dashboard-app-q3rcub.streamlit.app/">Live Demo</a><br/><sub>Data viz · Python · Streamlit · Plotly</sub></summary>
 
 <br/>
 
@@ -266,14 +260,10 @@ An interactive sentiment analysis dashboard built around **14,608 tweets from 6 
 - Added per-airline sentiment comparisons and sentiment-based word clouds
 - Added geolocation mapping and a random-tweet explorer
 
-[Repo](https://github.com/Chirag-12-06)
-
 </details>
 
 </td></tr>
 </table>
-
----
 
 ## Experience
 
