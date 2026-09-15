@@ -367,6 +367,7 @@
 <polygon points="602.0,450.3 613.0,456.3 602.0,462.3 591.0,456.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
 <polygon points="679.0,420.3 690.0,426.3 679.0,432.3 668.0,426.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
 <polygon points="668.0,426.3 679.0,432.3 668.0,438.3 657.0,432.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
+<polygon points="657.0,432.3 668.0,438.3 657.0,444.3 646.0,438.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
 </g>
 <g>
 <ellipse cx="108.4" cy="163.3" rx="8.0" ry="2.6" fill="#000000" opacity="0.28"/><rect x="105.3" y="158.0" width="3.5" height="4.4" fill="#7b4a24"/><path d="M 107.0 130.4 C 100.3 139.2, 99.8 142.8, 102.9 158.0 L 111.1 158.0 C 114.2 142.8, 113.7 139.2, 107.0 130.4 Z" fill="#9be9a8" stroke="#55805c" stroke-width="0.5" stroke-linejoin="round"/><path d="M 108.2 133.7 C 111.1 139.2, 111.3 142.8, 109.3 155.7" stroke="#bef0c6" stroke-width="0.6" fill="none" opacity="0.55" stroke-linecap="round"/>
