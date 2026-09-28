@@ -366,6 +366,7 @@
 <polygon points="613.0,444.3 624.0,450.3 613.0,456.3 602.0,450.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
 <polygon points="602.0,450.3 613.0,456.3 602.0,462.3 591.0,456.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
 <polygon points="679.0,420.3 690.0,426.3 679.0,432.3 668.0,426.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
+<polygon points="668.0,426.3 679.0,432.3 668.0,438.3 657.0,432.3" fill="#182022" stroke="#2b3538" stroke-width="0.5"/>
 </g>
 <g>
 <ellipse cx="86.4" cy="151.3" rx="8.0" ry="2.6" fill="#000000" opacity="0.28"/><rect x="83.3" y="146.0" width="3.5" height="4.4" fill="#7b4a24"/><path d="M 85.0 118.4 C 78.3 127.2, 77.8 130.8, 80.9 146.0 L 89.1 146.0 C 92.2 130.8, 91.7 127.2, 85.0 118.4 Z" fill="#9be9a8" stroke="#55805c" stroke-width="0.5" stroke-linejoin="round"/><path d="M 86.2 121.7 C 89.1 127.2, 89.3 130.8, 87.3 143.7" stroke="#bef0c6" stroke-width="0.6" fill="none" opacity="0.55" stroke-linecap="round"/>
@@ -548,5 +549,5 @@
 <text x="690" y="24" font-family="sans-serif" font-size="13" font-weight="600" text-anchor="end" fill="#39d353">354 contributions</text>
 <text x="690" y="40" font-family="sans-serif" font-size="11" text-anchor="end" fill="#8b949e">in the last year</text>
 <text x="30" y="489" font-family="sans-serif" font-size="13" font-weight="600" fill="#39d353">Longest streak: 50 days</text>
-<text x="30" y="507" font-family="sans-serif" font-size="11" fill="#8b949e">Current streak: 3 days</text>
+<text x="30" y="507" font-family="sans-serif" font-size="11" fill="#8b949e">Current streak: 0 days</text>
 </svg>
