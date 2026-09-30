@@ -47,8 +47,7 @@ PAD_BOTTOM = 55   # bottom room, must fit the bottom-left streak text
 GROUND_COLOR = "#182022"
 GROUND_STROKE = "#2b3538"
 TRUNK_COLOR = "#7b4a24"
-# LEVEL_COLORS = ["#9be9a8", "#40c463", "#30a14e", "#216e39"]  # level 1..4
-LEVEL_COLORS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39", "#0d4429"]  # level 0..5
+LEVEL_COLORS = ["#98FB98", "#50C878", "#00A86B", "#2E8B57", "#0B6623", "#1A2421"]  # level 0..5
 
 
 def _darken(hex_color: str, factor: float) -> str:
@@ -100,21 +99,6 @@ def fetch_contributions(username: str, token: str):
     total = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
     return weeks, total
 
-
-# def level_for_count(count: int, max_count: int) -> int:
-#     """Bucket a raw contribution count into 0-4, like GitHub's own heatmap."""
-#     if count <= 0:
-#         return 0
-#     if max_count <= 0:
-#         return 0
-#     ratio = count / max_count
-#     if ratio <= 0.25:
-#         return 1
-#     if ratio <= 0.5:
-#         return 2
-#     if ratio <= 0.75:
-#         return 3
-#     return 4
 
 def level_for_count(count: int, max_count: int) -> int:
     """Bucket a raw contribution count into 0-5, like GitHub's own heatmap."""
