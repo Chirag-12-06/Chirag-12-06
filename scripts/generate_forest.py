@@ -48,6 +48,7 @@ GROUND_COLOR = "#182022"
 GROUND_STROKE = "#2b3538"
 TRUNK_COLOR = "#7b4a24"
 LEVEL_COLORS = ["#98FB98", "#50C878", "#00A86B", "#2E8B57", "#0B6623", "#1A2421"]  # level 0..5
+LEVEL_THRESHOLDS = [1, 2, 3, 5, 9, 13]  # minimum count for level 0..6
 
 
 def _darken(hex_color: str, factor: float) -> str:
@@ -100,20 +101,14 @@ def fetch_contributions(username: str, token: str):
     return weeks, total
 
 
-def level_for_count(count: int, max_count: int) -> int:
-    """Bucket a raw contribution count into 0-5, like GitHub's own heatmap."""
-    if count <= 0 or max_count <= 0:
-        return 0
-    ratio = count / max_count
-    if ratio <= 0.2:
-        return 1
-    if ratio <= 0.4:
-        return 2
-    if ratio <= 0.6:
-        return 3
-    if ratio <= 0.8:
-        return 4
-    return 5
+def level_for_count(count: int) -> int:
+    """Bucket a raw contribution count into 0-7 using fixed thresholds."""
+    level = 0
+    for i, threshold in enumerate(LEVEL_THRESHOLDS, start=1):
+        if count >= threshold:
+            level = i
+    return level
+    
 
 def iso_pos(week_idx: int, day_idx: int, offset_x: float, offset_y: float):
     """Map a (week, day) grid cell to isometric screen coordinates."""
