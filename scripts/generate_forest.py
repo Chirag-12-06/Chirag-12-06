@@ -2,19 +2,22 @@
 """
 Generate an isometric 'contribution forest' SVG for a GitHub profile README.
 
-Same idea as the classic isometric contribution skyline, but each day is
-rendered as a small isometric pine tree instead of a building. Tree height
-and color intensity scale with that day's contribution count.
+Each day of the past year is an isometric tile. Days with contributions grow
+a cypress tree whose height and colour scale with a fixed 6-level threshold
+table. Days with zero contributions stay bare ground (no tree).
 
 Usage:
     python generate_forest.py --username YOUR_GITHUB_USERNAME --token $GITHUB_TOKEN --out forest.svg
+    python generate_forest.py --demo --out forest.svg      # synthetic data, no token needed
 """
 
 import argparse
-import os
-import sys
-import urllib.request
 import json
+import os
+import random
+import sys
+import urllib.error
+import urllib.request
 
 GRAPHQL_URL = "https://api.github.com/graphql"
 
@@ -36,48 +39,65 @@ query($login: String!) {
 }
 """
 
-# Tile / tree geometry (isometric diamond grid)
+# ---------------------------------------------------------------------------
+# Geometry
+# ---------------------------------------------------------------------------
 TILE_W = 22
 TILE_H = 12
-PAD_SIDE = 30     # left/right breathing room
-PAD_TOP = 50      # top room, must fit the tallest tree + top-right text
-PAD_BOTTOM = 55   # bottom room, must fit the bottom-left streak text
+PAD_SIDE = 30
+PAD_TOP = 50
+PAD_BOTTOM = 55
 
-# GitHub-style green ramp, dark->light unused levels get muted ground tile
+# ---------------------------------------------------------------------------
+# Colours / levels
+# ---------------------------------------------------------------------------
 GROUND_COLOR = "#182022"
 GROUND_STROKE = "#2b3538"
 TRUNK_COLOR = "#7b4a24"
-LEVEL_COLORS = ["#98FB98", "#50C878", "#00A86B", "#2E8B57", "#0B6623", "#1A2421"]  # level 0..5
-LEVEL_THRESHOLDS = [1, 2, 3, 5, 9, 13]  # minimum count for level 0..6
+
+# Level 1..6 (level 0 = no tree). Light -> dark green; the darkest is still
+# clearly green so it never blends into the ground tile.
+LEVEL_COLORS = ["#98FB98", "#50C878", "#00A86B", "#2E8B57", "#1B7F3B", "#0F5A2A"]
+LEVEL_THRESHOLDS = [1, 2, 3, 5, 9, 13]  # minimum contribution count for level 1..6
+MAX_LEVEL = len(LEVEL_COLORS)
+
+assert len(LEVEL_COLORS) == len(LEVEL_THRESHOLDS), "colours and thresholds must match"
 
 
 def _darken(hex_color: str, factor: float) -> str:
-    """Return hex_color scaled toward black by factor (0=black, 1=unchanged)."""
-    hex_color = hex_color.lstrip("#")
-    r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
-    r, g, b = int(r * factor), int(g * factor), int(b * factor)
-    return f"#{r:02x}{g:02x}{b:02x}"
+    """Scale a colour toward black (0 = black, 1 = unchanged)."""
+    h = hex_color.lstrip("#")
+    r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    return f"#{int(r * factor):02x}{int(g * factor):02x}{int(b * factor):02x}"
 
 
 def _lighten(hex_color: str, factor: float) -> str:
-    """Return hex_color scaled toward white by factor (0=unchanged, 1=white)."""
-    hex_color = hex_color.lstrip("#")
-    r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
-    r = int(r + (255 - r) * factor)
-    g = int(g + (255 - g) * factor)
-    b = int(b + (255 - b) * factor)
-    return f"#{r:02x}{g:02x}{b:02x}"
+    """Scale a colour toward white (0 = unchanged, 1 = white)."""
+    h = hex_color.lstrip("#")
+    r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    return (
+        f"#{int(r + (255 - r) * factor):02x}"
+        f"{int(g + (255 - g) * factor):02x}"
+        f"{int(b + (255 - b) * factor):02x}"
+    )
 
 
 DARK_LEVEL_COLORS = [_darken(c, 0.55) for c in LEVEL_COLORS]
 LIGHT_LEVEL_COLORS = [_lighten(c, 0.35) for c in LEVEL_COLORS]
-TRUNK_DARK = _darken(TRUNK_COLOR, 0.6)
-
-# Tallest possible tree (level 4) extends this far above a tile's vertical center
-_LEVEL4_SCALE = 1.05 + 4 * 0.4
-MAX_TREE_RISE = _LEVEL4_SCALE * 3 + _LEVEL4_SCALE * 19  # trunk_h + height at level 4
 
 
+def _tree_scale(level: int) -> float:
+    return 1.05 + level * 0.4
+
+
+# Tallest possible tree rises this far above a tile's vertical centre.
+_MAX_SCALE = _tree_scale(MAX_LEVEL)
+MAX_TREE_RISE = _MAX_SCALE * 3 + _MAX_SCALE * 19  # trunk_h + foliage height
+
+
+# ---------------------------------------------------------------------------
+# Data
+# ---------------------------------------------------------------------------
 def fetch_contributions(username: str, token: str):
     body = json.dumps({"query": QUERY, "variables": {"login": username}}).encode()
     req = urllib.request.Request(
@@ -90,110 +110,51 @@ def fetch_contributions(username: str, token: str):
         },
         method="POST",
     )
-    with urllib.request.urlopen(req) as resp:
-        data = json.load(resp)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.load(resp)
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"GitHub API returned HTTP {e.code}: {e.read().decode(errors='replace')}")
+    except urllib.error.URLError as e:
+        raise RuntimeError(f"Could not reach GitHub API: {e.reason}")
 
     if "errors" in data:
         raise RuntimeError(f"GitHub API error: {data['errors']}")
+    if not data.get("data") or not data["data"].get("user"):
+        raise RuntimeError(f"User '{username}' not found")
 
-    weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
-    total = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
+    cal = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+    return cal["weeks"], cal["totalContributions"]
+
+
+def demo_contributions(seed: int = 7):
+    """Synthetic 53-week calendar for testing without a token."""
+    rng = random.Random(seed)
+    weeks, total = [], 0
+    for _ in range(53):
+        days = []
+        for _ in range(7):
+            count = rng.choice([0, 0, 0, 1, 2, 3, 4, 6, 9, 12, 15, 20])
+            total += count
+            days.append({"date": "", "contributionCount": count})
+        weeks.append({"contributionDays": days})
     return weeks, total
 
 
 def level_for_count(count: int) -> int:
-    """Bucket a raw contribution count into 0-7 using fixed thresholds."""
+    """Bucket a raw contribution count into 0 (no tree) or 1-6."""
     level = 0
     for i, threshold in enumerate(LEVEL_THRESHOLDS, start=1):
         if count >= threshold:
             level = i
     return level
-    
-
-def iso_pos(week_idx: int, day_idx: int, offset_x: float, offset_y: float):
-    """Map a (week, day) grid cell to isometric screen coordinates."""
-    x = offset_x + (week_idx - day_idx) * (TILE_W / 2)
-    y = offset_y + (week_idx + day_idx) * (TILE_H / 2)
-    return x, y
-
-
-def draw_ground_tile(x: float, y: float) -> str:
-    """A flat diamond tile representing one day."""
-    pts = [
-        (x, y),
-        (x + TILE_W / 2, y + TILE_H / 2),
-        (x, y + TILE_H),
-        (x - TILE_W / 2, y + TILE_H / 2),
-    ]
-    pts_str = " ".join(f"{px:.1f},{py:.1f}" for px, py in pts)
-    return f'<polygon points="{pts_str}" fill="{GROUND_COLOR}" stroke="{GROUND_STROKE}" stroke-width="0.5"/>'
-
-
-def draw_tree(x: float, y: float, level: int) -> str:
-    """A tall, shaded front-facing cypress tree, sized and colored by contribution level."""
-    color = LEVEL_COLORS[level - 1]
-    dark_color = DARK_LEVEL_COLORS[level - 1]
-    light_color = LIGHT_LEVEL_COLORS[level - 1]
-    scale = 1.05 + level * 0.4  # level 1 already tall, level 4 towers
-    trunk_h = 3 * scale
-    trunk_w = 2.4 * scale
-    height = 19 * scale
-    width = 10 * scale
-
-    base_x = x
-    base_y = y + TILE_H / 2  # anchor at tile center, tree grows upward
-    foliage_base_y = base_y - trunk_h
-    top_y = foliage_base_y - height
-    mid_y = foliage_base_y - height * 0.55
-
-    # Soft ground shadow, offset slightly as if light comes from the upper-left
-    shadow_rx = width * 0.55
-    shadow_ry = shadow_rx * 0.32
-    shadow = (
-        f'<ellipse cx="{base_x + shadow_rx*0.18:.1f}" cy="{base_y + 1:.1f}" '
-        f'rx="{shadow_rx:.1f}" ry="{shadow_ry:.1f}" fill="#000000" opacity="0.28"/>'
-    )
-
-    # Trunk, single flat color
-    trunk = (
-        f'<rect x="{base_x - trunk_w/2:.1f}" y="{base_y - trunk_h:.1f}" '
-        f'width="{trunk_w:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_COLOR}"/>'
-    )
-
-    # Foliage: single flat-colored spindle silhouette, with a subtle darker
-    # outline so individual trees stay distinguishable when they overlap
-    foliage = (
-        f'<path d="M {base_x:.1f} {top_y:.1f} '
-        f'C {base_x - width*0.46:.1f} {top_y + height*0.32:.1f}, '
-        f'{base_x - width*0.5:.1f} {mid_y:.1f}, '
-        f'{base_x - width*0.28:.1f} {foliage_base_y:.1f} '
-        f'L {base_x + width*0.28:.1f} {foliage_base_y:.1f} '
-        f'C {base_x + width*0.5:.1f} {mid_y:.1f}, '
-        f'{base_x + width*0.46:.1f} {top_y + height*0.32:.1f}, '
-        f'{base_x:.1f} {top_y:.1f} Z" fill="{color}" '
-        f'stroke="{dark_color}" stroke-width="{max(0.5, scale*0.28):.1f}" stroke-linejoin="round"/>'
-    )
-
-    # Thin highlight streak on one side, like a rim of sunlight catching the edge
-    highlight = (
-        f'<path d="M {base_x + width*0.08:.1f} {top_y + height*0.12:.1f} '
-        f'C {base_x + width*0.28:.1f} {top_y + height*0.32:.1f}, '
-        f'{base_x + width*0.3:.1f} {mid_y:.1f}, '
-        f'{base_x + width*0.16:.1f} {foliage_base_y - height*0.08:.1f}" '
-        f'stroke="{light_color}" stroke-width="{max(0.6, scale*0.35):.1f}" '
-        f'fill="none" opacity="0.55" stroke-linecap="round"/>'
-    )
-
-    return shadow + trunk + foliage + highlight
 
 
 def compute_streaks(all_days):
-    """Longest and current consecutive-day contribution streaks.
+    """Longest and current streaks.
 
-    Current streak matches github-readme-streak-stats' rule: if *today*
-    (the last day in the list) has zero contributions, that alone doesn't
-    break the streak — the day isn't over yet. Only a second consecutive
-    zero day (i.e. yesterday was also zero) actually resets it to 0.
+    Matches github-readme-streak-stats: a zero-contribution *today* does not
+    break the current streak (the day isn't over yet).
     """
     longest = running = 0
     for d in all_days:
@@ -205,7 +166,7 @@ def compute_streaks(all_days):
 
     idx = len(all_days) - 1
     if idx >= 0 and all_days[idx]["contributionCount"] == 0:
-        idx -= 1  # give "today" a pass, same as the streak-stats badge does
+        idx -= 1
 
     current = 0
     while idx >= 0 and all_days[idx]["contributionCount"] > 0:
@@ -215,42 +176,121 @@ def compute_streaks(all_days):
     return longest, current
 
 
+# ---------------------------------------------------------------------------
+# Drawing
+# ---------------------------------------------------------------------------
+def iso_pos(week_idx: int, day_idx: int, offset_x: float, offset_y: float):
+    """Map a (week, day) cell to isometric screen coordinates."""
+    x = offset_x + (week_idx - day_idx) * (TILE_W / 2)
+    y = offset_y + (week_idx + day_idx) * (TILE_H / 2)
+    return x, y
+
+
+def draw_ground_tile(x: float, y: float) -> str:
+    pts = [
+        (x, y),
+        (x + TILE_W / 2, y + TILE_H / 2),
+        (x, y + TILE_H),
+        (x - TILE_W / 2, y + TILE_H / 2),
+    ]
+    pts_str = " ".join(f"{px:.1f},{py:.1f}" for px, py in pts)
+    return (
+        f'<polygon points="{pts_str}" fill="{GROUND_COLOR}" '
+        f'stroke="{GROUND_STROKE}" stroke-width="0.5"/>'
+    )
+
+
+def draw_tree(x: float, y: float, level: int) -> str:
+    """Cypress tree for level 1..MAX_LEVEL, anchored at the tile centre."""
+    color = LEVEL_COLORS[level - 1]
+    dark_color = DARK_LEVEL_COLORS[level - 1]
+    light_color = LIGHT_LEVEL_COLORS[level - 1]
+
+    scale = _tree_scale(level)
+    trunk_h = 3 * scale
+    trunk_w = 2.4 * scale
+    height = 19 * scale
+    width = 10 * scale
+
+    base_x = x
+    base_y = y + TILE_H / 2
+    foliage_base_y = base_y - trunk_h
+    top_y = foliage_base_y - height
+    mid_y = foliage_base_y - height * 0.55
+
+    shadow_rx = width * 0.55
+    shadow_ry = shadow_rx * 0.32
+    shadow = (
+        f'<ellipse cx="{base_x + shadow_rx * 0.18:.1f}" cy="{base_y + 1:.1f}" '
+        f'rx="{shadow_rx:.1f}" ry="{shadow_ry:.1f}" fill="#000000" opacity="0.28"/>'
+    )
+
+    trunk = (
+        f'<rect x="{base_x - trunk_w / 2:.1f}" y="{base_y - trunk_h:.1f}" '
+        f'width="{trunk_w:.1f}" height="{trunk_h:.1f}" fill="{TRUNK_COLOR}"/>'
+    )
+
+    foliage = (
+        f'<path d="M {base_x:.1f} {top_y:.1f} '
+        f'C {base_x - width * 0.46:.1f} {top_y + height * 0.32:.1f}, '
+        f'{base_x - width * 0.5:.1f} {mid_y:.1f}, '
+        f'{base_x - width * 0.28:.1f} {foliage_base_y:.1f} '
+        f'L {base_x + width * 0.28:.1f} {foliage_base_y:.1f} '
+        f'C {base_x + width * 0.5:.1f} {mid_y:.1f}, '
+        f'{base_x + width * 0.46:.1f} {top_y + height * 0.32:.1f}, '
+        f'{base_x:.1f} {top_y:.1f} Z" fill="{color}" '
+        f'stroke="{dark_color}" stroke-width="{max(0.5, scale * 0.28):.1f}" '
+        f'stroke-linejoin="round"/>'
+    )
+
+    highlight = (
+        f'<path d="M {base_x + width * 0.08:.1f} {top_y + height * 0.12:.1f} '
+        f'C {base_x + width * 0.28:.1f} {top_y + height * 0.32:.1f}, '
+        f'{base_x + width * 0.3:.1f} {mid_y:.1f}, '
+        f'{base_x + width * 0.16:.1f} {foliage_base_y - height * 0.08:.1f}" '
+        f'stroke="{light_color}" stroke-width="{max(0.6, scale * 0.35):.1f}" '
+        f'fill="none" opacity="0.55" stroke-linecap="round"/>'
+    )
+
+    return shadow + trunk + foliage + highlight
+
+
 def render_svg(weeks, total: int) -> str:
+    if not weeks:
+        raise ValueError("No contribution weeks to render")
+
     all_days = [d for w in weeks for d in w["contributionDays"]]
-    max_count = max((d["contributionCount"] for d in all_days), default=0)
     longest_streak, current_streak = compute_streaks(all_days)
 
-    num_weeks = len(weeks)
-    max_week = num_weeks - 1
+    max_week = len(weeks) - 1
 
-    # Raw (unshifted) extents of the diagonal tile strip, computed analytically:
-    # x is minimized at (week=0, day=6) and maximized at (week=max_week, day=0);
-    # y is minimized at (week=0, day=0) and maximized at (week=max_week, day=6).
+    # Extents of the diagonal tile strip (computed analytically).
     raw_min_x = (0 - 6) * (TILE_W / 2) - TILE_W / 2
-    raw_max_x = (max_week - 0) * (TILE_W / 2) + TILE_W / 2
-    raw_min_y = (0 + 0) * (TILE_H / 2) - MAX_TREE_RISE  # leave room for a tall tree here
+    raw_max_x = max_week * (TILE_W / 2) + TILE_W / 2
+    raw_min_y = -MAX_TREE_RISE
     raw_max_y = (max_week + 6) * (TILE_H / 2) + TILE_H
 
-    content_w = raw_max_x - raw_min_x
-    content_h = raw_max_y - raw_min_y
+    width = (raw_max_x - raw_min_x) + PAD_SIDE * 2
+    height = (raw_max_y - raw_min_y) + PAD_TOP + PAD_BOTTOM
 
-    width = content_w + PAD_SIDE * 2
-    height = content_h + PAD_TOP + PAD_BOTTOM
-
-    # Offset that shifts raw_min_x/raw_min_y to sit exactly PAD_SIDE/PAD_TOP from the edges
     offset_x = PAD_SIDE - raw_min_x
     offset_y = PAD_TOP - raw_min_y
 
-    ground_parts = []
-    tree_parts = []
+    # Back-to-front so nearer (larger week+day) trees overlap farther ones.
+    cells = [
+        (wi, di, day["contributionCount"])
+        for wi, week in enumerate(weeks)
+        for di, day in enumerate(week["contributionDays"])
+    ]
+    cells.sort(key=lambda c: (c[0] + c[1], c[0]))
 
-    for week_idx, week in enumerate(weeks):
-        for day_idx, day in enumerate(week["contributionDays"]):
-            x, y = iso_pos(week_idx, day_idx, offset_x, offset_y)
-            ground_parts.append(draw_ground_tile(x, y))
-            level = level_for_count(day["contributionCount"], max_count)
-            if level > 0:
-                tree_parts.append(draw_tree(x, y, level))
+    ground_parts, tree_parts = [], []
+    for wi, di, count in cells:
+        x, y = iso_pos(wi, di, offset_x, offset_y)
+        ground_parts.append(draw_ground_tile(x, y))
+        level = level_for_count(count)
+        if level > 0:
+            tree_parts.append(draw_tree(x, y, level))
 
     ground_block = "\n".join(ground_parts)
     tree_block = "\n".join(tree_parts)
@@ -269,7 +309,7 @@ def render_svg(weeks, total: int) -> str:
         f'fill="#8b949e">Current streak: {current_streak} days</text>'
     )
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width:.0f} {height:.0f}" width="{width:.0f}" height="{height:.0f}">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width:.0f} {height:.0f}" width="{width:.0f}" height="{height:.0f}">
 <rect width="100%" height="100%" fill="none"/>
 <g>
 {ground_block}
@@ -280,24 +320,37 @@ def render_svg(weeks, total: int) -> str:
 {top_right_text}
 {bottom_left_text}
 </svg>'''
-    return svg
 
 
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--username", required=True)
-    parser.add_argument("--token", default=os.environ.get("GITHUB_TOKEN"))
-    parser.add_argument("--out", default="forest.svg")
+    parser = argparse.ArgumentParser(description="Generate an isometric contribution forest SVG.")
+    parser.add_argument("--username", help="GitHub username")
+    parser.add_argument("--token", default=os.environ.get("GITHUB_TOKEN"),
+                        help="GitHub token (or set GITHUB_TOKEN)")
+    parser.add_argument("--out", default="forest.svg", help="Output SVG path")
+    parser.add_argument("--demo", action="store_true", help="Use synthetic data (no token needed)")
     args = parser.parse_args()
 
-    if not args.token:
-        print("Error: no token provided (use --token or set GITHUB_TOKEN)", file=sys.stderr)
-        sys.exit(1)
+    if args.demo:
+        weeks, total = demo_contributions()
+    else:
+        if not args.username:
+            parser.error("--username is required unless --demo is used")
+        if not args.token:
+            print("Error: no token provided (use --token or set GITHUB_TOKEN)", file=sys.stderr)
+            sys.exit(1)
+        try:
+            weeks, total = fetch_contributions(args.username, args.token)
+        except RuntimeError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
 
-    weeks, total = fetch_contributions(args.username, args.token)
     svg = render_svg(weeks, total)
 
-    with open(args.out, "w") as f:
+    with open(args.out, "w", encoding="utf-8") as f:
         f.write(svg)
 
     print(f"Wrote {args.out} ({total} contributions, {len(weeks)} weeks)")
